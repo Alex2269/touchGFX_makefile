@@ -73,7 +73,7 @@ asset_fonts_output := $(asset_root_path)/fonts
 asset_texts_output := $(asset_root_path)/texts
 
 #include application specific configuration
-include $(application_path)/TouchGFX/config/gcc/app.mk
+# include $(application_path)/TouchGFX/config/gcc/app.mk
 
 # corrects TouchGFX Path
 touchgfx_path := touchgfx
@@ -277,7 +277,7 @@ $(binary_output_path)/$(target_executable): $(object_files) $(object_asm_files)
 	@echo "  extflash.bin - External flash, binary"
 	@$(objcopy) -O binary --only-section=ExtFlashSection $@ $(@D)/extflash.bin
 
-$(object_output_path)/touchgfx/%.o: $(touchgfx_path)/%.cpp TouchGFX/config/gcc/app.mk
+$(object_output_path)/touchgfx/%.o: $(touchgfx_path)/%.cpp # TouchGFX/config/gcc/app.mk
 	@echo Compiling $<
 	@mkdir -p $(@D)
 	@$(cpp_compiler) \
@@ -285,7 +285,7 @@ $(object_output_path)/touchgfx/%.o: $(touchgfx_path)/%.cpp TouchGFX/config/gcc/a
 		$(patsubst %,-I%,$(include_paths)) \
 		-c $< -o $@
 
-$(object_output_path)/%.o: %.cpp TouchGFX/config/gcc/app.mk
+$(object_output_path)/%.o: %.cpp # TouchGFX/config/gcc/app.mk
 	@echo Compiling $<
 	@mkdir -p $(@D)
 	@$(cpp_compiler) \
@@ -293,7 +293,7 @@ $(object_output_path)/%.o: %.cpp TouchGFX/config/gcc/app.mk
 		$(patsubst %,-I%,$(include_paths)) \
 		-c $< -o $@
 
-$(object_output_path)/touchgfx/%.o: $(touchgfx_path)/%.c TouchGFX/config/gcc/app.mk
+$(object_output_path)/touchgfx/%.o: $(touchgfx_path)/%.c # TouchGFX/config/gcc/app.mk
 	@echo Compiling $<
 	@mkdir -p $(@D)
 	@$(c_compiler) \
@@ -301,7 +301,7 @@ $(object_output_path)/touchgfx/%.o: $(touchgfx_path)/%.c TouchGFX/config/gcc/app
 		$(patsubst %,-I%,$(include_paths)) \
 		-c $< -o $@
 
-$(object_output_path)/%.o: %.c TouchGFX/config/gcc/app.mk
+$(object_output_path)/%.o: %.c # TouchGFX/config/gcc/app.mk
 	@echo Compiling $<
 	@mkdir -p $(@D)
 	@$(c_compiler) \
@@ -309,7 +309,7 @@ $(object_output_path)/%.o: %.c TouchGFX/config/gcc/app.mk
 		$(patsubst %,-I%,$(include_paths)) \
 		-c $< -o $@
 
-$(object_output_path)/%.o: %.s TouchGFX/config/gcc/app.mk
+$(object_output_path)/%.o: %.s # TouchGFX/config/gcc/app.mk
 	@echo Compiling ASM $<
 	@mkdir -p $(@D)
 	@$(assembler) \
@@ -318,7 +318,7 @@ $(object_output_path)/%.o: %.s TouchGFX/config/gcc/app.mk
 		-c $< -o $@
 
 ifeq ($(MAKECMDGOALS),build_executable)
-$(firstword $(dependency_files)): TouchGFX/config/gcc/app.mk
+$(firstword $(dependency_files)): # TouchGFX/config/gcc/app.mk
 	@rm -rf $(object_output_path)
 -include $(dependency_files)
 endif
