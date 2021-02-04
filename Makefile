@@ -72,7 +72,7 @@ asset_images_output := $(asset_root_path)/images
 asset_fonts_output := $(asset_root_path)/fonts
 asset_texts_output := $(asset_root_path)/texts
 
-#include application specific configuration
+### include application specific configuration
 # include $(application_path)/TouchGFX/config/gcc/app.mk
 
 # corrects TouchGFX Path
