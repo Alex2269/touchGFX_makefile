@@ -262,10 +262,16 @@ $(binary_output_path)/$(target_executable): $(object_files) $(object_asm_files)
 	@mkdir -p $(object_output_path)
 	@$(file >$(build_root_path)/objects.tmp) $(foreach F,$(object_files),$(file >>$(build_root_path)/objects.tmp,$F))
 	@$(linker) \
-		$(linker_options) -T $(makefile_path_relative)/STM32F769NIHx_FLASH.ld -Wl,-Map=$(@D)/application.map $(linker_options_local) \
+		$(linker_options) \
+		-T $(makefile_path_relative)/STM32F769NIHx_FLASH.ld \
+		-Wl,--print-memory-usage,-Map=$(@D)/application.map \
+		$(linker_options_local) \
 		$(patsubst %,-L%,$(library_include_paths)) \
-		@$(build_root_path)/objects.tmp $(object_asm_files) -o $@ \
-		-Wl,--start-group $(patsubst %,-l%,$(libraries)) -Wl,--end-group
+		@$(build_root_path)/objects.tmp \
+		$(object_asm_files) -o $@ \
+		-Wl,--start-group \
+		$(patsubst %,-l%,$(libraries)) \
+		-Wl,--end-group
 	@rm -f $(build_root_path)/objects.tmp
 	@echo "Producing additional output formats..."
 	@echo "  target.hex   - Combined internal+external hex"
